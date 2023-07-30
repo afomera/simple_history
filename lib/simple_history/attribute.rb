@@ -7,9 +7,9 @@ module SimpleHistory
     # thread_mattr_accessor :current_user
 
     included do
-      after_create_commit   :record_simple_history
+      after_create   :record_simple_history
       after_update_commit   :record_simple_history
-      # before_destroy_commit :record_simple_history
+      after_destroy :record_simple_history
     end
 
     private
@@ -20,16 +20,27 @@ module SimpleHistory
       # )
       # SimpleHistory::Attribute.current_user = nil
 
-      History.create(
-        record: self,
-        changed_data: self.previous_changes.to_json,
-        user: nil,
-        action: history_action
-      )
+      if history_action.eql?('destroyed')
+        History.create(
+          record: self,
+          changed_data: self.attributes.to_json,
+          user: nil,
+          action: history_action
+        )
+      else
+
+        return if self.previous_changes.empty?
+        History.create(
+          record: self,
+          changed_data: self.previous_changes.to_json,
+          user: nil,
+          action: history_action
+        )
+      end
     end
 
     def history_action
-      # return 'destroyed' if self.changes.to_json.empty?
+      return 'destroyed' if destroyed?
       return 'created' if created_at.eql?(updated_at)
       return 'updated' if updated_at > created_at
     end

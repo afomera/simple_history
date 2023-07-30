@@ -1,5 +1,5 @@
 <h1 class="mb-2"><%= @history.record_type %> <%= @history.record_id %></h1>
-<p class="text-sm">Changed at: <%= @history.created_at %></p>
+<p class="text-sm"><%= @history.action.humanize %> at: <%= @history.created_at %></p>
 
 <% if @history.changed_data.present? && JSON.parse(@history.changed_data).any? %>
   <div class="table w-full">
@@ -11,12 +11,22 @@
       </div>
     </div>
     <div class="table-row-group">
-      <% JSON.parse(@history.changed_data).each do |change| %>
-        <div class="table-row">
-          <%= tag.div change[0], class: "table-cell border-b border-neutral-200 p-2" %>
-          <%= tag.div change[1][0], class: "table-cell border-b border-neutral-200 bg-red-50 p-2" %>
-          <%= tag.div change[1][1], class: "table-cell border-b border-neutral-200 bg-green-50 p-2" %>
-        </div>
+      <% if @history.action == "destroyed" %>
+        <% JSON.parse(@history.changed_data).each do |change| %>
+          <div class="table-row">
+            <%= tag.div change[0], class: "table-cell border-b border-neutral-200 p-2" %>
+            <%= tag.div change[1], class: "table-cell border-b border-neutral-200 bg-red-50 p-2" %>
+            <%= tag.div "", class: "table-cell border-b border-neutral-200 bg-green-50 p-2" %>
+          </div>
+        <% end %>
+      <% else %>
+        <% JSON.parse(@history.changed_data).each do |change| %>
+          <div class="table-row">
+            <%= tag.div change[0], class: "table-cell border-b border-neutral-200 p-2" %>
+            <%= tag.div change[1][0], class: "table-cell border-b border-neutral-200 bg-red-50 p-2" %>
+            <%= tag.div change[1][1], class: "table-cell border-b border-neutral-200 bg-green-50 p-2" %>
+          </div>
+        <% end %>
       <% end %>
     </div>
   </div>
