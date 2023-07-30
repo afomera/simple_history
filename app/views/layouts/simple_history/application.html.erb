@@ -1,15 +1,21 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Simple history</title>
-  <%= csrf_meta_tags %>
-  <%= csp_meta_tag %>
+  <head>
+    <title>SimpleHistory</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag    "simple_history/application", media: "all" %>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
+  </head>
 
-  <%= stylesheet_link_tag    "simple_history/application", media: "all" %>
-</head>
-<body>
-
-<%= yield %>
-
-</body>
+  <body>
+    <div class="flex gap-4">
+      <%= render "simple_history/shared/nav" %>
+      <div class="ml-72 w-full p-4 sm:p-8 prose max-w-none prose-a:no-underline">
+        <%= render "simple_history/shared/flash" %>
+        <%= yield %>
+      </div>
+    </div>
+  </body>
 </html>

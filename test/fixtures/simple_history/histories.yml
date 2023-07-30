@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  record: one
+  record_type: Record
+  user: one
+  user_type: User
+  action: MyString
+  changed_data: MyText
+
+two:
+  record: two
+  record_type: Record
+  user: two
+  user_type: User
+  action: MyString
+  changed_data: MyText

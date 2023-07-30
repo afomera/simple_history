@@ -1,0 +1,28 @@
+<h1 class="mb-2"><%= @history.record_type %> <%= @history.record_id %></h1>
+<p class="text-sm">Changed at: <%= @history.created_at %></p>
+
+<% if @history.changed_data.present? && JSON.parse(@history.changed_data).any? %>
+  <div class="table w-full">
+    <div class="table-header-group">
+      <div class="table-row font-bold">
+        <div class="table-cell border-b border-neutral-200 p-2">Attribute</div>
+        <div class="table-cell border-b border-neutral-200 p-2">Previous value</div>
+        <div class="table-cell border-b border-neutral-200 p-2">New value</div>
+      </div>
+    </div>
+    <div class="table-row-group">
+      <% JSON.parse(@history.changed_data).each do |change| %>
+        <div class="table-row">
+          <%= tag.div change[0], class: "table-cell border-b border-neutral-200 p-2" %>
+          <%= tag.div change[1][0], class: "table-cell border-b border-neutral-200 bg-red-50 p-2" %>
+          <%= tag.div change[1][1], class: "table-cell border-b border-neutral-200 bg-green-50 p-2" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<% if @history.record.present? %>
+  <h2 class="mt-4">Latest Attributes</h2>
+  <pre><code><%= JSON.pretty_generate(@history.record.attributes) %></code></pre>
+<% end %>

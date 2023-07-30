@@ -1,0 +1,11 @@
+<nav class="p-4 sm:p-8 fixed inset-y-0 w-72 bg-slate-100 text-dark">
+  <h1 class="flex items-center gap-1 font-extrabold">
+    <%= link_to "SimpleHistory", root_path %>
+  </h1>
+
+  <br />
+  <%= link_to "Back to app", main_app.root_path, class: "block text-sm" if main_app.root_path %>
+
+  <br />
+  <%= link_to "History", histories_path, class: "block" %>
+</nav>

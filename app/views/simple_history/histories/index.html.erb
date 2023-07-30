@@ -1,0 +1,18 @@
+<div class="flex justify-between items-center">
+  <h1 class="mb-2">History</h1>
+  <div>
+    <%= form_tag(histories_path, method: :get) do %>
+      <%= select_tag :record_type, options_for_select(@record_types, params[:record_type]), class: "mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-5 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-slate-600 sm:text-sm sm:leading-6" %>
+      <%= text_field_tag :record_id, params[:record_id], placeholder: "ID", class: "border border-neutral-200 rounded p-2" %>
+      <%= submit_tag "Search", class: "bg-slate-900 text-white rounded p-2" %>
+    <% end %>
+  </div>
+</div>
+
+<% @histories.each do |history| %>
+  <div>
+    <%= link_to history do %>
+      <%= history.record_type %> #<%= history.record_id %> - <%= history.action %> - <%= history.created_at %>
+    <% end %>
+  </div>
+<% end %>
