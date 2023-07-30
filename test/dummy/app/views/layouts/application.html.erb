@@ -10,6 +10,12 @@
   </head>
 
   <body>
+    <%= link_to "Home", root_path %>
+    <%= link_to "Simple History", "/simple_history" %>
+    <%= link_to "Tweets", tweets_path %>
+    <%= link_to "Posts", posts_path %>
+    <hr>
+
     <%= yield %>
   </body>
 </html>
