@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    simple_history (0.0.2)
+    simple_history (0.1.0)
       rails (>= 7.0.6)
 
 GEM
